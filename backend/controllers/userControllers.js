@@ -72,7 +72,7 @@ const signUp = async (req, res) => {
     const numberOfUser = await User.countDocuments();
 
     if (numberOfUser === 0) {
-      req.body.role = "admin";
+      req.body.role = "mainAdmin";
     }
 
     const salt = bcrypt.genSaltSync(10);
@@ -131,6 +131,45 @@ const verifyEmail = async (req, res) => {
 
 const signIn = async (req, res) => {
   try {
+    if (!req.body.email.trim() || !req.body.password.trim()) {
+      return res
+        .status(404)
+        .json({ success: true, msg: "Email and password are required!" });
+    }
+
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      return res.status(400).json({ success: false, msg: "Invalid email!" });
+    }
+
+    if (!user.isVerified) {
+      return res
+        .status(400)
+        .json({ success: false, msg: "Email not verified!" });
+    }
+
+    const isPasswordSame = bcrypt.compareSync(req.body.password, user.password);
+
+    if (!isPasswordSame) {
+      return res.status(400).json({ success: false, msg: "Invalid password!" });
+    }
+
+    const token = jwt.sign(
+      {
+        userId: user._id,
+        fame: user.fname,
+        lame: user.lname,
+        email: user.email,
+        role: user.role,
+      },
+      process.env.SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
+
+    res.status(200).json({ success: true, token });
   } catch (error) {
     res.status(500).json({ success: false, msg: error.message });
   }

@@ -23,10 +23,10 @@ function SignUp() {
     const result = await signUp(formData);
 
     if (result.success) {
-      toast("Signed-up successfully!", { type: "success" });
+      toast.success("Signed-up successfully!");
       navigate("/signin");
     } else {
-      toast(result.msg, { type: "error" });
+      toast.error(result.msg);
     }
   };
 

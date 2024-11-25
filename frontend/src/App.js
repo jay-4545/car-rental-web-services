@@ -5,19 +5,23 @@ import React from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import LayoutAdmin from "./layout/admin/LayoutAdmin";
 import LayoutMain from "./layout/main/LayoutMain";
+import LayoutMainAdmin from "./layout/mainAdmin/LayoutMainAdmin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import AddUpdateCarForm from "./pages/admin/Car/AddUpdateCarForm";
 import CarList from "./pages/admin/Car/CarList";
-import DashBoard from "./pages/admin/DashBoard";
 import OrderList from "./pages/admin/orders/OrderList";
-import UserList from "./pages/admin/users/UserList";
 import Home from "./pages/main/Home";
 import ProductDetails from "./pages/main/ProductDetails";
 import SignIn from "./pages/main/SignIn";
 import SignUp from "./pages/main/SignUp";
 import VerifyEmail from "./pages/main/VerifyEmail";
+import Dashboard from "./pages/mainAdmin/Dashboard";
 import store from "./redux/store";
+import UserList from "./pages/mainAdmin/users/UserList";
+import AdminList from "./pages/mainAdmin/admins/AdminList";
 
 function App() {
   const theme = createTheme({
@@ -47,11 +51,16 @@ function App() {
             </Route>
 
             <Route path="/admin" element={<LayoutAdmin />}>
-              <Route index element={<DashBoard />} />
+              <Route index element={<AdminDashboard />} />
               <Route path="cars" element={<CarList />} />
               <Route path="cars/:id" element={<AddUpdateCarForm />} />
-              <Route path="users" element={<UserList />} />
               <Route path="orders" element={<OrderList />} />
+            </Route>
+
+            <Route path="/mainAdmin" element={<LayoutMainAdmin />}>
+              <Route index element={<Dashboard />} />
+              <Route path="users" element={<UserList />} />
+              <Route path="admins" element={<AdminList />} />
             </Route>
           </Routes>
         </BrowserRouter>

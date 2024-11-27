@@ -3,6 +3,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../../services/apiServices";
 import { toast } from "react-toastify";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
+const role = ["admin", "user"];
 
 function SignUp() {
   const navigate = useNavigate();
@@ -47,6 +54,19 @@ function SignUp() {
             <TextField id="lname" name="lname" label="Last Name" />
           </div>
           <TextField id="email" name="email" label="Email" />
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Role</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="role"
+              name="role"
+              label="Role"
+            >
+              {role.map((type) => {
+                return <MenuItem value={type}>{type}</MenuItem>;
+              })}
+            </Select>
+          </FormControl>
           <TextField
             id="password"
             name="password"

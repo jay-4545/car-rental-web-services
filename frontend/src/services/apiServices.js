@@ -103,6 +103,14 @@ export const signIn = async (body) => {
   return data;
 };
 
-export const logOut = async () => {};
+export const logOut = async () => {
+  const response = await fetch(`${BASE_URL}/users/signout`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+  const data = await response.json();
+  return data;
+};
 
 export const checkUser = async () => {};

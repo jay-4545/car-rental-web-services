@@ -1,10 +1,21 @@
-import { Button, Paper, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+} from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminPageTitle from "../../../component/admin/common/AdminPageTitle";
 import MyFileUpload from "../../../component/admin/common/MyFileUpload";
 import { addCar, getCar, updateCar } from "../../../services/apiServices";
+
+const fuelType = ["Petrol", "Diesel", "Gase"];
+const carCapacity = ["xuv", "cedan"];
 
 function AddUpdateCarForm() {
   const { id } = useParams();
@@ -64,7 +75,7 @@ function AddUpdateCarForm() {
       }
     }
 
-    console.log("formState", formState);
+    console.log("formData", Array.from(formData.entries()));
 
     try {
       if (isAdd) {
@@ -80,6 +91,8 @@ function AddUpdateCarForm() {
       alert(error.message);
     }
   };
+
+  console.log("formState", formState);
 
   if (!formState) return null;
 
@@ -125,14 +138,23 @@ function AddUpdateCarForm() {
               value={formState.model}
               onChange={handleChange}
             />
-            <TextField
-              id="fuel"
-              label="Fuel Type"
-              variant="outlined"
-              name="fuel"
-              value={formState.fuel}
-              onChange={handleChange}
-            />
+            <FormControl fullWidth>
+              <InputLabel id="fuel-type">Fuel Type</InputLabel>
+              <Select
+                labelId="fuel-type"
+                id="fuel"
+                name="fuel"
+                value={formState.fuel}
+                label="Fuel Type"
+                onChange={handleChange}
+              >
+                {fuelType.map((data, index) => (
+                  <MenuItem key={index} value={data}>
+                    {data}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -144,14 +166,23 @@ function AddUpdateCarForm() {
               value={formState.rentalPrice}
               onChange={handleChange}
             />
-            <TextField
-              id="capacity"
-              label="Car Capacity"
-              variant="outlined"
-              name="capacity"
-              value={formState.capacity}
-              onChange={handleChange}
-            />
+            <FormControl fullWidth>
+              <InputLabel id="car-capacity">Capacity</InputLabel>
+              <Select
+                labelId="car-capacity"
+                id="capacity"
+                name="capacity"
+                value={formState.capacity}
+                label="Capacity"
+                onChange={handleChange}
+              >
+                {carCapacity.map((data, index) => (
+                  <MenuItem key={index} value={data}>
+                    {data}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
           <TextField
             id="desc"

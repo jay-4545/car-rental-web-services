@@ -1,10 +1,12 @@
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import MuiDrawer from "@mui/material/Drawer";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -66,9 +68,9 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const links = [
-  { icon: <DashboardIcon />, text: "Dashboard", to: "/admin" },
-  { icon: <DirectionsCarIcon />, text: "Cars", to: "/admin/cars" },
-  { icon: <ReceiptLongIcon />, text: "Orders", to: "/admin/orders" },
+  { icon: <DashboardIcon />, text: "Dashboard", to: "/mainAdmin" },
+  { icon: <PeopleAltIcon />, text: "Users", to: "/mainAdmin/users" },
+  { icon: <SupervisorAccountIcon />, text: "Admins", to: "/mainAdmin/admins" },
 ];
 const extraLinks = [
   {
@@ -77,7 +79,7 @@ const extraLinks = [
   },
 ];
 
-function DrawerAdmin({ open }) {
+function DrawerMainAdmin({ open }) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -133,4 +135,4 @@ function DrawerAdmin({ open }) {
   );
 }
 
-export default DrawerAdmin;
+export default DrawerMainAdmin;

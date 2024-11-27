@@ -184,6 +184,16 @@ const checkUser = async (req, res) => {
 
 const signOut = async (req, res) => {
   try {
+    const user = await User.findById(req.user.userId);
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        msg: "No such user exists!",
+      });
+    }
+
+    res.status(200).json({ success: true, msg: "Sign-out successfully!" });
   } catch (error) {
     res.status(500).json({ success: false, msg: error.message });
   }

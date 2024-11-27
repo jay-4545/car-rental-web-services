@@ -27,6 +27,7 @@ const carSchema = new mongoose.Schema({
 
   fuel: {
     type: String,
+    enum: ["Petrol", "Diesel", "Gase"],
     required: true,
   },
 
@@ -44,7 +45,8 @@ const carSchema = new mongoose.Schema({
   },
 
   capacity: {
-    type: Number,
+    type: String,
+    enum: ["xuv", "cedan"],
     required: true,
   },
 

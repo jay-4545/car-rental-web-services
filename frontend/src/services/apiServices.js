@@ -80,7 +80,10 @@ export const deleteUser = async (id) => {
 export const signUp = async (body) => {
   const response = await fetch(`${BASE_URL}/users/signup`, {
     method: "POST",
-    body: body,
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
   const data = await response.json();
   return data;
@@ -114,3 +117,17 @@ export const logOut = async () => {
 };
 
 export const checkUser = async () => {};
+
+// booking
+
+export const addBooking = async (body) => {
+  const response = await fetch(`${BASE_URL}/bookings`, {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+  return data;
+};

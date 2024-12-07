@@ -1,12 +1,13 @@
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getCarBySlug } from "../../services/apiServices";
+import { useNavigate, useParams } from "react-router-dom";
 import CarRent from "../../component/main/CarRent";
+import { getCarBySlug } from "../../services/apiServices";
 
 function ProductDetails() {
   const params = useParams();
   const [carData, setCarData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCarBySlug([params.slug]).then((data) => {
@@ -14,7 +15,11 @@ function ProductDetails() {
     });
   }, [params.slug]);
 
-  console.log("carData", carData);
+  const goToBooking = () => {
+    navigate("/confirmBooking", {
+      state: carData,
+    });
+  };
 
   if (!carData) return null;
 
@@ -43,9 +48,11 @@ function ProductDetails() {
         </Typography>
         <Typography variant="body2">Fuel Type: {carData.fuel}</Typography>
         <Typography variant="body1" color="primary" sx={{ mt: 2 }}>
-          Price (12 hours) : ₹{carData.rentalPrice}
+          Price (24 hours) : ₹{carData.rentalPrice}
         </Typography>
-        <CarRent />
+        <Button variant="contained" onClick={goToBooking}>
+          Confirm Booking
+        </Button>
       </div>
     </div>
   );

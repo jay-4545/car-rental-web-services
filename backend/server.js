@@ -5,6 +5,7 @@ require("dotenv").config();
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const userRouter = require("./routes/userRoutes");
+const bookingRouter = require("./routes/bookingRoutes");
 const server = express();
 
 server.use(cors());
@@ -15,6 +16,7 @@ server.use("/uploads", express.static("uploads"));
 
 server.use("/cars", carRouter);
 server.use("/users", userRouter);
+server.use("/bookings", bookingRouter);
 
 const start = async () => {
   try {

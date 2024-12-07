@@ -3,15 +3,20 @@ import { Badge, Box, Button, IconButton } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Extras({ toggleCart, openProfileMenu, user }) {
+  const { bookings } = useSelector((store) => {
+    return store.booking;
+  });
+
   return (
     <Box sx={{ display: { xs: "none", md: "flex" } }}>
-      <IconButton onClick={toggleCart} size="large" color="inherit">
-        <Badge badgeContent={4} color="error">
+      {/* <IconButton onClick={toggleCart} size="large" color="inherit">
+        <Badge badgeContent={bookings.length} color="error">
           <ShoppingCartIcon />
         </Badge>
-      </IconButton>
+      </IconButton> */}
       {user ? (
         <IconButton
           size="large"

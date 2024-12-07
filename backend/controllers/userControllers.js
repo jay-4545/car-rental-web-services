@@ -58,47 +58,36 @@ const deleteUser = async (req, res) => {
 
 const signUp = async (req, res) => {
   try {
-    userValidator(req.body);
-
-    const existingUser = await User.findOne({ email: req.body.email });
-
-    if (existingUser) {
-      return res.status(404).json({
-        success: false,
-        msg: "Email already exists!",
-      });
-    }
-
-    const numberOfUser = await User.countDocuments();
-
-    if (numberOfUser === 0) {
-      req.body.role = "mainAdmin";
-    }
-
-    const salt = bcrypt.genSaltSync(10);
-    req.body.password = bcrypt.hashSync(req.body.password, salt);
-
-    const verificationToken = crypto.randomBytes(64).toString("hex");
-    req.body.verificationToken = verificationToken;
-
-    const user = await User.create(req.body);
-
-    const verificationLink = `http://localhost:3000/verifyEmail?token=${verificationToken}&userId=${user._id}`;
-
-    const info = await transporter.sendMail({
-      from: `"Jay Kukadiya" <${process.env.ETHEREAL_USERNAME}>`,
-      to: req.body.email,
-      subject: "Verification Email",
-      html: `<p>Please click on this link to verify your email: <a href="${verificationLink}">Verify Email</a></p>`,
-    });
-
-    if (!info?.messageId) {
-      return res
-        .status(500)
-        .json({ success: false, msg: "Failed to send verification!" });
-    }
-
-    res.status(200).json({ success: true, msg: "Sign-up successfull!" });
+    // userValidator(req.body);
+    // const existingUser = await User.findOne({ email: req.body.email });
+    // if (existingUser) {
+    //   return res.status(404).json({
+    //     success: false,
+    //     msg: "Email already exists!",
+    //   });
+    // }
+    // const numberOfUser = await User.countDocuments();
+    // if (numberOfUser === 0) {
+    //   req.body.role = "mainAdmin";
+    // }
+    // const salt = bcrypt.genSaltSync(10);
+    // req.body.password = bcrypt.hashSync(req.body.password, salt);
+    // const verificationToken = crypto.randomBytes(64).toString("hex");
+    // req.body.verificationToken = verificationToken;
+    // const user = await User.create(req.body);
+    // const verificationLink = `http://localhost:3000/verifyEmail?token=${verificationToken}&userId=${user._id}`;
+    // const info = await transporter.sendMail({
+    //   from: `"Jay Kukadiya" <${process.env.ETHEREAL_USERNAME}>`,
+    //   to: req.body.email,
+    //   subject: "Verification Email",
+    //   html: `<p>Please click on this link to verify your email: <a href="${verificationLink}">Verify Email</a></p>`,
+    // });
+    // if (!info?.messageId) {
+    //   return res
+    //     .status(500)
+    //     .json({ success: false, msg: "Failed to send verification!" });
+    // }
+    // res.status(200).json({ success: true, msg: "Sign-up successfull!" });
   } catch (error) {
     res.status(500).json({ success: false, msg: error.message });
   }

@@ -1,13 +1,21 @@
-import React from "react";
-import NavbarMain from "./NavbarMain";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import FooterMain from "./FooterMain";
+import NavbarMain from "./NavbarMain";
 
 function LayoutMain() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function toggleCart() {
+    setIsOpen(!isOpen);
+  }
+
   return (
     <div>
-      <NavbarMain />
-      <Outlet />
+      <NavbarMain toggleCart={toggleCart} />
+      <div>
+        <Outlet />
+      </div>
       <FooterMain />
     </div>
   );

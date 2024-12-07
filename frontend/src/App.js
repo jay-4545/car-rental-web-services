@@ -22,6 +22,8 @@ import Dashboard from "./pages/mainAdmin/Dashboard";
 import store from "./redux/store";
 import UserList from "./pages/mainAdmin/users/UserList";
 import AdminList from "./pages/mainAdmin/admins/AdminList";
+import ConfirmBooking from "./pages/main/ConfirmBooking";
+import MyProfile from "./pages/main/MyProfile";
 
 function App() {
   const theme = createTheme({
@@ -48,6 +50,8 @@ function App() {
               <Route path="signup" element={<SignUp />} />
               <Route path="signin" element={<SignIn />} />
               <Route path="verifyEmail" element={<VerifyEmail />} />
+              <Route path="confirmBooking" element={<ConfirmBooking />} />
+              <Route path="myProfile" element={<MyProfile />} />
             </Route>
 
             <Route path="/admin" element={<LayoutAdmin />}>
